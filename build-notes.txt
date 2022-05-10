@@ -9,6 +9,12 @@ mkdir build
 
 export PICO_SDK_PATH=/home/devel/rp2040-logic-analyzer/pico-sdk/
 
+cd build
+
+cmake ..
+
+make
+
 openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg -c "program rp2040-logic-analyzer.elf verify reset exit"
 
 
