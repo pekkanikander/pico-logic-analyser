@@ -5,6 +5,14 @@ cd rp2040-logic-analyzer/
 
 Need pico-sdk in this tree
 
+git clone https://github.com/raspberrypi/pico-sdk
+
+cd pico-sdk
+
+git submodule update --init
+
+cd ../
+
 mkdir build
 
 export PICO_SDK_PATH=/home/devel/rp2040-logic-analyzer/pico-sdk/
