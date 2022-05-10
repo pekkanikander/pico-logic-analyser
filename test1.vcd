@@ -1,0 +1,66 @@
+$date
+    Date text. For example: November 11, 2009.
+ $end
+ $version
+    VCD generator tool version info text.
+ $end
+ $comment
+    Any comment text.
+ $end
+ $timescale 1ps $end
+ $scope module logic $end
+ $var wire 8 # data $end
+ $var wire 1 $ pin17 $end
+ $var wire 1 % pin18 $end
+ $var wire 1 & pin19 $end
+ $var wire 1 ' pin20 $end
+ $var wire 1 ' pin21 $end
+ $var wire 1 % pin22 $end
+ $var wire 1 & pin23 $end
+ $var wire 1 ' pin24 $end
+ $var wire 1 ' pin25 $end
+ $var wire 1 ( empty $end
+ $var wire 1 ) underrun $end
+ $upscope $end
+ $enddefinitions $end
+ $dumpvars
+ bxxxxxxxx #
+ x$
+ 0%
+ x&
+ x'
+ 1(
+ 0)
+ $end
+ #0
+ b10000001 #
+ 0$
+ 1%
+ 0&
+ 1'
+ 0(
+ 0)
+ #2211
+ 0'
+ #2296
+ b0 #
+ 1$
+ #2302
+ 0$
+ #2303
+ #4000
+ 1'
+ #4010
+ 0$
+ #5000
+
+The code above defines 7 signals by using $var:
+
+ $var type bitwidth id name
+
+The id is used later on the value change dump. The value change dump starts after $enddefinitions $end and is based on timestamps. Timestamp is denoted as '#' followed by number. On each timestamp the list of signals that change their value is listed. This is done by the value/id pair:
+
+ new_value id
+This example will be displayed as 
+[[File:Screenshot of GTKWave showing an example VCD file..png|alt=Screenshot of an example VCD file displayed by GTKWave.|center|frame|An example VCD file displayed by [http://gtkwave.sourceforge.net/ GTKWave].]]
+<br />
