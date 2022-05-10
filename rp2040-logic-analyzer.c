@@ -29,8 +29,8 @@ const uint LED_PIN = 25;
 
 // Defaults - just what I tested with any legal value is fine
 uint CAPTURE_PIN_BASE = 17;
-uint CAPTURE_PIN_COUNT = 20;
-uint CAPTURE_N_SAMPLES = 3000;
+uint CAPTURE_PIN_COUNT = 5;
+uint CAPTURE_N_SAMPLES = 30000;
 float FREQ_DIV = 125.0f; // Divide 125Mhz by this to get your freq
 uint FREQUENCY = 1000000;
 bool TRIGGER = false; // true = high : false = low

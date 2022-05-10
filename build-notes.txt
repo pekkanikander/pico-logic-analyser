@@ -1,6 +1,6 @@
 *********************************************https://forums.raspberrypi.com/viewtopic.php?t=304041*********************************************
 git clone git@github.com:develone/rp2040-logic-analyzer.git
-
+https://twitter.com/MarkKomus/status/1360253863455051786?s=20&t=NfFmu1jSAUjFCLgHmHdPYg
 cd rp2040-logic-analyzer/
 
 Need pico-sdk in this tree
