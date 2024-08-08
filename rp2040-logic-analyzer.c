@@ -85,8 +85,8 @@ void logic_analyser_arm(PIO pio, uint sm, uint dma_chan, uint32_t *capture_buf, 
 }
 
 void print_capture_buf_csv(const uint32_t *buf, uint pin_base, uint pin_count, uint32_t n_samples) {
-    for (int sample = 0; sample < n_samples; ++sample) {
-        for (int pin = 0; pin < pin_count; ++pin) {
+    for (uint32_t sample = 0; sample < n_samples; ++sample) {
+        for (uint pin = 0; pin < pin_count; ++pin) {
             uint bit_index = pin + sample * pin_count;
             bool level = !!(buf[bit_index / 32] & 1u << (bit_index % 32));
             printf(level ? "1" : "0");
