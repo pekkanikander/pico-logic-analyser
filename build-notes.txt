@@ -1,30 +1,27 @@
 *********************************************https://forums.raspberrypi.com/viewtopic.php?t=304041*********************************************
-git clone git@github.com:develone/rp2040-logic-analyzer.git
-https://twitter.com/MarkKomus/status/1360253863455051786?s=20&t=NfFmu1jSAUjFCLgHmHdPYg
-cd rp2040-logic-analyzer/
 
-Need pico-sdk in this tree
+# Adapted from develone's notes, not tested, as I'm using VSCodium for my builds
+
+git clone https://github.com/pekkanikander/pico-logic-analyser.git
+
+cd pico-logic-analyser/
+
+# For manual-builds, we need pico-sdk in this tree
 
 git clone https://github.com/raspberrypi/pico-sdk
-
 cd pico-sdk
-
 git submodule update --init
-
 cd ../
+export PICO_SDK_PATH=$PWD/pico-sdk/
 
 mkdir build
-
-export PICO_SDK_PATH=/home/devel/rp2040-logic-analyzer/pico-sdk/
-
 cd build
-
 cmake ..
-
 make
 
-openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg -c "program rp2040-logic-analyzer.elf verify reset exit"
+openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg -c "program pico-logic-analyser.elf verify reset exit"
 
+------------
 
  uint CAPTURE_PIN_BASE = 17;
 -uint CAPTURE_PIN_COUNT = 2;

@@ -28,23 +28,22 @@ set(CMAKE_CXX_STANDARD 17)
 # Pull in Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(rp2040-logic-analyzer C CXX)
+project(pico-logic-analyser C CXX)
 
 # Initialise the Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(rp2040-logic-analyzer rp2040-logic-analyzer.c )
+add_executable(pico-logic-analyser pico-logic-analyser.c )
 
-pico_set_program_name(rp2040-logic-analyzer "rp2040-logic-analyzer")
-pico_set_program_version(rp2040-logic-analyzer "0.1")
+pico_set_program_name(pico-logic-analyser "pico-logic-analyser")
+pico_set_program_version(pico-logic-analyser "0.1a")
 
-pico_enable_stdio_uart(rp2040-logic-analyzer 0)
-pico_enable_stdio_usb(rp2040-logic-analyzer 1)
+pico_enable_stdio_uart(pico-logic-analyser 0)
+pico_enable_stdio_usb(pico-logic-analyser 1)
 
 # Add the standard library to the build
-target_link_libraries(rp2040-logic-analyzer pico_stdlib hardware_pio hardware_dma)
+target_link_libraries(pico-logic-analyser pico_stdlib hardware_pio hardware_dma)
 
-pico_add_extra_outputs(rp2040-logic-analyzer)
-
+pico_add_extra_outputs(pico-logic-analyser)
