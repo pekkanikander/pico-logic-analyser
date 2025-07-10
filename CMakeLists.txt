@@ -35,7 +35,8 @@ pico_sdk_init()
 add_executable(pico-logic-analyser pico-logic-analyser.c)
 
 pico_set_program_name(pico-logic-analyser "pico-logic-analyser")
-pico_set_program_version(pico-logic-analyser "0.1a")
+
+pico_set_program_version(pico-logic-analyser "0.1.1")
 
 # Modify the below lines to enable/disable output over UART/USB
 pico_enable_stdio_uart(pico-logic-analyser 0)
