@@ -44,6 +44,14 @@ pico_enable_stdio_uart(pico-logic-analyser 0)
 pico_enable_stdio_usb(pico-logic-analyser 1)
 
 # Add the standard library to the build
-target_link_libraries(pico-logic-analyser pico_stdlib hardware_pio hardware_dma)
+target_link_libraries(pico-logic-analyser
+        pico_stdlib)
+
+# Add any user requested libraries
+target_link_libraries(pico-logic-analyser
+        hardware_dma
+        hardware_pio
+        pico_cyw43_arch_none
+        )
 
 pico_add_extra_outputs(pico-logic-analyser)

@@ -25,7 +25,34 @@
 #include "hardware/dma.h"
 #include "hardware/clocks.h"
 
-const uint LED_PIN = 25;
+#if defined(CYW43_WL_GPIO_LED_PIN)
+#include "pico/cyw43_arch.h"
+#endif
+
+// Perform initialisation
+int pico_led_init(void) {
+#if defined(PICO_DEFAULT_LED_PIN)
+    // A device like Pico that uses a GPIO for the LED will define PICO_DEFAULT_LED_PIN
+    // so we can use normal GPIO functionality to turn the led on and off
+    gpio_init(PICO_DEFAULT_LED_PIN);
+    gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
+    return PICO_OK;
+#elif defined(CYW43_WL_GPIO_LED_PIN)
+    // For Pico W devices we need to initialise the driver etc
+    return cyw43_arch_init();
+#endif
+}
+
+// Turn the led on or off
+void pico_set_led(bool led_on) {
+#if defined(PICO_DEFAULT_LED_PIN)
+    // Just set the GPIO on or off
+    gpio_put(PICO_DEFAULT_LED_PIN, led_on);
+#elif defined(CYW43_WL_GPIO_LED_PIN)
+    // Ask the wifi "driver" to set the GPIO on or off
+    cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, led_on);
+#endif
+}
 
 // Defaults - just what I tested with any legal value is fine
 uint CAPTURE_PIN_BASE = 17;
@@ -96,9 +123,9 @@ void print_capture_buf_csv(const uint32_t *buf, uint pin_base, uint pin_count, u
         // Blink the LED every 2500 samples to show something is happening
         // Good for a serial capture where you cannot see if it is still outputting
         if ((sample % 5000) == 0)
-            gpio_put(LED_PIN, 1);
+            pico_set_led(1);
         else if ((sample % 5000) == 2500)
-            gpio_put(LED_PIN, 0);
+            pico_set_led(0);
 
         printf("\n");
     }
@@ -224,8 +251,7 @@ void read_user_input() {
 int main() {
     stdio_init_all();
 
-    gpio_init(LED_PIN);
-    gpio_set_dir(LED_PIN, GPIO_OUT);
+    pico_led_init();
 
     uint32_t *capture_buf = 0;
 
@@ -234,9 +260,9 @@ int main() {
     uint dma_chan = 0;
 
     while (true) {
-        gpio_put(LED_PIN, 1);
+        pico_set_led(1);
         sleep_ms(1000);
-        gpio_put(LED_PIN, 0);
+        pico_set_led(0);
 
         read_user_input();
 
@@ -254,7 +280,7 @@ int main() {
         printf("Capture speed is %f.2\n", caphz);
 
         printf("Arming trigger\n");
-        gpio_put(LED_PIN, 1);
+        pico_set_led(1);
 
         logic_analyser_arm(pio, sm, dma_chan, capture_buf,
             (CAPTURE_PIN_COUNT * CAPTURE_N_SAMPLES + 31) / 32,
@@ -262,7 +288,7 @@ int main() {
 
         dma_channel_wait_for_finish_blocking(dma_chan);
 
-        gpio_put(LED_PIN, 0);
+        pico_set_led(0);
         print_capture_buf_csv(capture_buf, CAPTURE_PIN_BASE, CAPTURE_PIN_COUNT, CAPTURE_N_SAMPLES);
 
         pio_remove_program(pio, capture_prog_2, offset);
